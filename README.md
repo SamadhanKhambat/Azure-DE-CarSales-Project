@@ -1,55 +1,68 @@
-🚀 End-to-End Azure Data Engineering Project | Car Sales Analytics
+🚀 End‑to‑End Azure Data Engineering Project | Car Sales Analytics
+This project showcases a production‑style end‑to‑end Azure Data Engineering pipeline built for Car Sales Analytics, implementing real‑world data engineering patterns using Azure Data Factory and Azure Databricks.
+The solution demonstrates how raw data is ingested, incrementally processed, transformed using the Medallion Architecture, and modeled into an analytics‑ready Star Schema, following enterprise best practices.
 
-📌 Overview
+🔹 Project Flow Summary
 
-Built a production-style Azure Data Engineering pipeline using Azure Data Factory, Azure Databricks, ADLS Gen2, Delta Lake, and Unity Catalog following Medallion Architecture (Bronze, Silver, Gold).
-
-⚙️ Tech Stack
-
-Azure Data Factory | Azure Databricks | PySpark | Delta Lake | ADLS Gen2 | Azure SQL | Unity Catalog | GitHub | SQL
-
-🔄 Project Flow
-
-Loaded car sales data from GitHub into Azure SQL
-
-Implemented incremental loading using Watermark Pattern in ADF
-
-Ingested raw data into Bronze layer
-
-Applied cleansing and transformations in Silver layer
-
-Built Fact & Dimension tables in Gold layer using Star Schema
-
-Implemented SCD Type-1 Upsert logic using Delta Lake
-
-Orchestrated end-to-end workflow using ADF MasterPipeline
-
-Integrated Databricks notebooks with GitHub for version control
+Car sales data is copied from GitHub into Azure SQL Database, which acts as the transactional source system
+Azure Data Factory (ADF) handles ingestion, incremental loading, and orchestration
+Azure Databricks performs data transformations across Bronze, Silver, and Gold layers
+Final output is a Fact_Sales table and Dimension tables optimized for analytics
 
 
-✅ Key Features
-
-Incremental Data Loading
-
-Medallion Architecture
-
-Delta Lake Merge Operations
-
-SCD Type-1 Implementation
-
-Star Schema Modeling
-
-Unity Catalog Governance
-
-End-to-End ADF Orchestration
+🔹 Azure Data Factory Pipelines
 
 
-📂 Pipelines
+SourcePrep Pipeline
+Copies car sales data from GitHub into Azure SQL Database
 
-SourcePrepPipeline
 
 IncremDataPipeline
+Performs incremental data loads from Azure SQL to Azure Data Lake using the watermark pattern
+(lookup last/current load → copy activity → stored procedure update)
+
 
 DBNotePipeline
+Triggers Azure Databricks notebooks from ADF for data processing
+
 
 MasterPipeline
+Orchestrates the complete end‑to‑end workflow:
+SourcePrep → IncremDataPipeline → DBNotePipeline
+
+
+
+🔹 Data Transformation (Azure Databricks)
+
+Implemented Medallion Architecture
+
+Bronze – Raw incremental data
+Silver – Data cleansing, standardization, and business transformations
+Gold – Analytics‑ready tables
+
+
+Built Fact_Sales and Dimension tables using Star Schema
+Implemented SCD Type‑1 (upsert logic) on dimension tables
+Used Delta Lake for ACID transactions, reliability, and performance
+
+
+🔹 Governance & Version Control
+
+Unity Catalog used for schema management and access governance
+Databricks notebooks integrated with GitHub (Repos)
+GitHub acts as the central repository for notebooks and raw data files
+
+
+⭐ Key Highlights
+
+End‑to‑end orchestration using ADF MasterPipeline
+Incremental data loading via watermark pattern
+SCD Type‑1 implementation on dimension tables
+Clear separation of Silver (transformations) and Gold (analytics) layers
+Databricks notebooks triggered directly from ADF
+Fully Git‑integrated development workflow
+Analytics‑ready Star Schema design
+
+
+🧰 Tech Stack
+Azure Data Factory | Azure Databricks | Azure SQL Database | ADLS Gen2 | Delta Lake | Unity Catalog | PySpark | SQL | GitHub
